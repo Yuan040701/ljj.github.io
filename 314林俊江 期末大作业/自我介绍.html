@@ -1,0 +1,298 @@
+<!DOCTYPE html PUBLIC >
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>我的个人网页</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    
+<!-- 轮播图部分 -->  
+<div class="box" id="carousel">  
+    <div class="inner">  
+        <ul>  
+            <li><img src="1.jpg" alt="Image 1"></li>  
+            <li><img src="2.jpg" alt="Image 2"></li>  
+            <li><img src="3.jpg" alt="Image 3"></li>  
+            <!-- 可以继续添加更多图片 -->  
+        </ul>  
+        <ol class="bar"></ol> <!-- 指示器 -->  
+        <div id="arr">  
+            <span id="left">&lt;</span>  
+            <span id="right">&gt;</span>  
+        </div>  
+    </div>  
+</div>
+<!------banner结束----->
+<div class="main">
+	<div class="box4">
+				<div class="right">
+                    <br>
+                    <br>
+                    <br>
+					<h1>关于我</h1>
+                     <br>
+                    <p>有社恐，不爱跟人打交道</p>
+                    <br />
+                    <p> 人生是一条漫长的路，充满荆棘与坎坷，如果说曲线比直线美，在于曲线是有转折的，富有流动的韵味，那么人生也就正是因为荆棘而多彩，因为坎坷而美丽。</p>
+                                        <br>
+                    <br>
+                    <br>
+
+                    <img src="嘻嘻.webp">
+				</div>
+			</div>
+            <br>
+            <br>
+            <br>
+
+			<div class="box4">
+				
+				<div class="right">
+					<h1>我的爱好</h1>
+                     <br>
+                    <p>没有什么特别的爱好，就爱躺在床上</p>
+                    <br />                  
+                    <br>
+                    <br>
+
+                    <img src="躺床上.webp">
+				
+				</div>
+			</div>
+            <br>
+            <br>
+            <br>
+
+			
+			
+			<div class="box4">
+				
+				<div class="right">
+					<h1>座右铭</h1>
+                     <br>
+                    <p>行善在我，太多事情没有结果，不用纠结</p>
+                       <br />
+                    <p>向前走，莫回头</p>
+                
+                    <img src="向前走.webp">	    
+                   
+				
+				</div>
+			</div>
+			
+</div>
+
+<div id="nav">
+    <ul>                            
+    <li><a class="hos" href="index.html">首页</a></li>
+    <li><a href="基本资料.html">基本资料</a></li>
+    <li><a href="兴趣爱好.html">兴趣爱好</a></li>
+    <li><a href="自我评价.html">自我评价</a></li>
+    <li><a href="相关内容.html">相关内容</a></li>
+    </ul>
+<script>  
+    let currentIndex = 0;  
+    const images = document.querySelectorAll('#carousel ul li img');  
+    const totalImages = images.length;  
+    const indicators = document.querySelector('.bar');  
+      
+    // 创建指示器  
+    for (let i = 0; i < totalImages; i++) {  
+        let indicator = document.createElement('li');  
+        indicator.classList.add('indicator');  
+        if (i === 0) indicator.classList.add('active');  
+        indicators.appendChild(indicator);  
+    }  
+      
+    // 切换图片  
+    function changeSlide(index) {  
+        currentIndex = (index + totalImages) % totalImages; // 循环播放  
+        images.forEach((img, idx) => {  
+            img.style.display = 'none';  
+            document.querySelector(`.bar .indicator:nth-child(${idx + 1})`).classList.remove('active');  
+        });  
+        images[currentIndex].style.display = 'block';  
+        document.querySelector(`.bar .indicator:nth-child(${currentIndex + 1})`).classList.add('active');  
+    }  
+      
+    // 左右箭头控制  
+    document.getElementById('left').addEventListener('click', () => changeSlide(currentIndex - 1));  
+    document.getElementById('right').addEventListener('click', () => changeSlide(currentIndex + 1));  
+      
+    // 自动播放（可选）  
+    let slideInterval = setInterval(() => changeSlide(currentIndex + 1), 3000); // 每3秒切换一次  
+      
+    // 鼠标悬停时停止自动播放（可选）  
+    document.querySelector('#carousel').addEventListener('mouseover', () => clearInterval(slideInterval));  
+    document.querySelector('#carousel').addEventListener('mouseout', () => slideInterval = setInterval(() => changeSlide(currentIndex + 1), 3000));  
+
+
+
+
+    
+    </script>
+
+
+    <canvas id="fireworks"></canvas>
+    <script>
+        const canvas = document.getElementById('fireworks');
+        const ctx = canvas.getContext('2d');
+        let canvasWidth = window.innerWidth; // Dynamic canvas width
+        let canvasHeight = window.innerHeight; // Dynamic canvas height
+        canvas.width = canvasWidth;
+        canvas.height = canvasHeight;
+        
+        const fireworks = [];
+        const particles = [];
+        const maxFireworks = 4; // Maximum number of fireworks displayed
+        const hue = Math.random() * 360;
+        
+        function createFirework(x, y) {
+            if (fireworks.length < maxFireworks) { // Limit number of fireworks
+                fireworks.push(new Firework(x, y));
+            }
+        }
+        
+        function Firework(x, y) {
+            this.x = x;
+            this.y = y;
+            this.radius = 3;
+            this.speed = 3;
+            this.angle = Math.random() * Math.PI * 2;
+            this.color = `hsl(${hue}, 100%, 50%)`;
+            this.velocity = {
+                x: Math.cos(this.angle) * this.speed,
+                y: Math.sin(this.angle) * this.speed
+            };
+            this.gravity = 0.1;
+            this.opacity = 1;
+            this.life = 60;
+        }
+        
+        Firework.prototype.update = function() {
+            this.velocity.x *= 0.98;
+            this.velocity.y *= 0.98;
+            this.velocity.y += this.gravity;
+            this.x += this.velocity.x;
+            this.y += this.velocity.y;
+            this.opacity -= 1 / this.life;
+        };
+        
+        Firework.prototype.draw = function() {
+            ctx.globalCompositeOperation = 'lighter';
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.fillStyle = this.color;
+            ctx.fill();
+        };
+        
+        function createParticles(x, y) {
+            for (let i = 0; i < 30; i++) {
+                particles.push(new Particle(x, y));
+            }
+        }
+        
+        function Particle(x, y) {
+            this.x = x;
+            this.y = y;
+            this.radius = Math.random() * 2;
+            this.speed = Math.random() * 3 + 1;
+            this.angle = Math.random() * Math.PI * 2;
+            this.color = `hsl(${hue}, 100%, 50%)`;
+            this.velocity = {
+                x: Math.cos(this.angle) * this.speed,
+                y: Math.sin(this.angle) * this.speed
+            };
+            this.gravity = 0.1;
+            this.opacity = 1;
+            this.life = 50;
+        }
+        
+        Particle.prototype.update = function() {
+            this.velocity.x *= 0.98;
+            this.velocity.y *= 0.98;
+            this.velocity.y += this.gravity;
+            this.x += this.velocity.x;
+            this.y += this.velocity.y;
+            this.opacity -= 1 / this.life;
+        };
+        
+        Particle.prototype.draw = function() {
+            ctx.globalCompositeOperation = 'lighter';
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.fillStyle = this.color;
+            ctx.fill();
+        };
+        
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            fireworks.forEach((firework, index) => {
+                firework.update();
+                firework.draw();
+                if (firework.opacity <= 0) {
+                    fireworks.splice(index, 1);
+                    createParticles(firework.x, firework.y);
+                }
+            });
+        
+            particles.forEach((particle, index) => {
+                particle.update();
+                particle.draw();
+                if (particle.opacity <= 0) {
+                    particles.splice(index, 1);
+                }
+            });
+        
+            requestAnimationFrame(animate);
+        }
+        
+        animate();
+        
+        canvas.addEventListener('click', function(event) {
+            const mouseX = event.clientX;
+            const mouseY = event.clientY;
+            createFirework(mouseX, mouseY);
+        });
+        
+        // Check for collisions
+        function checkCollision(p1, p2) {
+            const dx = p1.x - p2.x;
+            const dy = p1.y - p2.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            return distance < p1.radius + p2.radius;
+        }
+        
+        // Handle collisions and remove particles
+        function handleCollisions() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    if (checkCollision(particles[i], particles[j])) {
+                        particles.splice(j, 1);
+                        particles.splice(i, 1);
+                        i--;
+                        break;
+                    }
+                }
+            }
+        }
+        
+        setInterval(handleCollisions, 100); // Check collisions every 100ms
+        </script>
+        
+
+</body>
+
+
+<video autoplay loop muted playsinline>  
+    <source src="123.mp4" type="video/mp4">  
+    Your browser does not support the video tag.  
+</video>  
+  
+</html>
+
+
+
+
