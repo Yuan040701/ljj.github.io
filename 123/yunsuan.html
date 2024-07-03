@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>快乐运算</title>
+	<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/jumbotron.css">
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/font-awesome-4.5.0/css/font-awesome.min.css">
+	<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <style type="text/css">
+        body {
+  padding-top: 50px;
+  padding-bottom: 20px;
+  background-color: black;
+}
+
+.jumbotron{
+	background-color: rgb(48, 49, 51);
+}
+
+.black{
+	background-color: black;
+}
+    .bgc1{
+	color: white;
+	background-color: rgb(38, 39, 41);
+}
+.bgc2{
+	color: white;
+	background-color: rgb(60, 60, 60);
+}
+.choose{
+	line-height: 25px;
+	text-align: center;
+}
+.ml57{
+	margin-left: 61px;
+}
+.dropdown-menu{
+	opacity: 0.8;
+}
+.pd20{
+	padding: 20px;
+}
+.block{
+	display: block;
+}
+.user-name, .user-rank, .user-score{
+	text-indent: 2em;
+	line-height: 33.33px;
+}
+#Answer1{
+	height: 20px;
+	width: 45px;
+}
+th[scope]{
+	width: 8em;
+}
+#problem-table>tbody>tr>td:last-child{
+	width: 8em;
+}
+#problem-table>tbody>tr>td>input{
+	width: 100%;
+}
+.guest-score{
+	margin-top: 30px;
+	text-indent: 9em;
+	line-height: 33.33px;
+}
+.mb30{
+	margin-bottom: 30px;
+}
+</style>
+</head>
+<body>
+
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="javascript:void(0)">快乐运算:)</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <form class="navbar-form navbar-right">
+            <div class="form-group">
+              <input type="text" placeholder="邮箱" class="form-control">
+            </div>
+            <div class="form-group">
+              <input type="password" placeholder="密码" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-success">登录</button>
+            <button type="submit" class="btn btn-danger">注册</button>
+          </form>
+        </div>
+      </div>
+	</nav>
+	<div class="jumbotron">
+      <div class="container">
+      	<div class="row">
+      		<div class="col-md-10">
+				<h3>欢迎来到快乐运算~</h3>
+		        <p>在这里你将攻克各个难题，和不同的人面对难易相近的难题。希望你能披荆斩棘，走向人生巅峰。</p>
+		        <strong>你可以：</strong>
+		        <small>独自通关</small><br>
+		        <small class="ml57">线上对战</small><br><br>
+		        <button class="btn btn-primary btn-xs" href="#" role="button">详细信息 »</button>
+      		</div>
+  			<div class="col-md-2"><div class="thumbnail"><img src="2.jpg" class="thumbnail" width="400em" height="200em"></div></div>
+      	</div>
+      </div>
+    </div>
+    <div class="container black mb30">
+    	<div class="row">
+	        <div class="col-md-5 bgc1 pd20" id="leftBox">
+	            <h4>小试牛刀</h4>
+	            <div class="dropup">
+		        	<button class="btn-warning choose btn-block" data-toggle="dropdown" aria-haspopup="true">
+		        		<h6>选择难度<span class="caret"></span></h6>
+					</button>
+		            <ul class="dropdown-menu btn-block">
+					  <li><a onclick="getItem(10, 3, 2, 0)">白银</a></li>
+					  <li><a onclick="getItem(10, 6, 2, 0)">黄金</a></li>
+					  <li><a onclick="getItem(100, 10, 2, 0)">白金</a></li>
+					  <li><a onclick="getItem(100, 10, 4, 0)">钻石</a></li>
+					  <li><a onclick="getItem(100, 10, 4, 1)">最强王者</a></li>
+					</ul>
+				</div>
+				<div class="info pd20">
+					<img src="2.jpg" class="thumbnail" width="100em" height="100em" style="float:left">
+					<span class="user-name block">姓名：尚未登陆</span>
+					<span class="user-score block">分数：尚未登陆</span>
+					<span class="user-rank block">排名：尚未登陆</span>
+					<span class="guest-score block">测试得分：</span>
+					<span class="guest-score block"><button class="btn-warning choose btn-block" data-toggle="dropdown" aria-haspopup="true" onclick="showAllFormulas()">习题册</button></span>
+				</div>
+	        </div>
+	        <div class="yourans col-md-5 bgc1 pd20" id="leftBox2" style="display: none">
+	        	<h4>看看你的结果吧</h4>
+				<img src="1.jpg" class="thumbnail" width="100em" height="100em" style="float:left">
+				<button class="btn-success" onclick="back()" style="position: absolute; margin-left:30px; margin-top:130px">返回</button>
+				<table id="ans-table" class="table" style="margin-left: 110px; width: calc(100% - 110px)">
+			        <tr>
+			            <th scope="row">1</th>
+			            <td></td>
+			            <td></td>
+			            <td></td>
+			        </tr>
+			        <tr>
+			            <th scope="row">2</th>
+			            <td></td>
+			            <td></td>
+			            <td></td>
+			        </tr>
+			        <tr>
+			            <th scope="row">3</th>
+			            <td></td>
+			            <td></td>
+			            <td></td>
+			        </tr>
+			        <tr>
+			            <th scope="row">4</th>
+			            <td></td>
+			            <td></td>
+			            <td></td>
+			        </tr>
+			        <tr>
+			            <th scope="row">5</th>
+			            <td></td>
+			            <td></td>
+			            <td></td>
+			        </tr>
+			        <tr>
+			            <th scope="row">#</th>
+			            <td></td>
+			            <td></td>
+			            <td></td>
+			        </tr>
+				</table>
+			</div>
+	        <div class="formulas col-md-5 bgc1 pd20" id="leftBox1" style="display: none">
+	        	<h4>请回答下列问题：</h4>
+
+				<table id="problem-table" class="table table-bordered" style="margin-top: 15px;">
+			        <tr>
+			            <th scope="row">1</th>
+			            <td>1+1+1+1+1+1+1+1</td>
+			            <td><input type="text" class="form-control" id="Answer1" placeholder="Answer"></td>
+			        </tr>
+				    <tr>
+				        <th scope="row">2</th>
+				        <td>黄文杰</td>
+				        <td><input type="text" class="form-control" id="Answer1" placeholder="Answer"></td>
+			        </tr>
+			        <tr>
+			            <th scope="row">3</th>
+			            <td>刘恒旭</td>				            
+			            <td><input type="text" class="form-control" id="Answer1" placeholder="Answer"></td>
+				    </tr>
+				    <tr>
+				        <th scope="row">4</th>
+			            <td>林俊江</td>
+			            <td><input type="text" class="form-control" id="Answer1" placeholder="Answer"></td>
+			        </tr>
+			        <tr>
+			            <th scope="row">5</th>
+			            <td>戚超博</td>
+			            <td><input type="text" class="form-control" id="Answer1" placeholder="Answer"></td>
+			        </tr>
+				</table>
+				<button class="btn-success btn-block" onclick="submit()" style="margin-top: 50px">提交</button>
+			</div>
+	        <div class="col-md-7 bgc2 pd20" id="rightBox">
+	        	<h4>榜上有名</h4>
+	        	<table class="table">
+	        		<thead>
+						<tr>
+				            <th>#</th>
+				            <th>用户名</th>
+				            <th>分数</th>
+				            <th>名次</th>
+				        </tr>
+			        </thead>
+			        <tr>
+			            <th scope="row">1</th>
+			            <td>黄文杰</td>
+			            <td>0</td>
+			            <td>0</td>
+			        </tr>
+			        <tr>
+			            <th scope="row">2</th>
+			            <td>刘恒旭</td>
+			            <td>0</td>
+			            <td>0</td>
+			        </tr>
+			        <tr>
+			            <th scope="row">3</th>
+			            <td>林俊江</td>
+			            <td>0</td>
+			            <td>0</td>
+			        </tr>
+			        <tr>
+			            <th scope="row">4</th>
+			            <td>戚超博</td>
+			            <td>0</td>
+			            <td>0</td>
+			        </tr>
+			        <tr>
+			            <th scope="row">5</th>
+			            <td>陈凯翔</td>
+			            <td>0</td>
+			            <td>0</td>
+			        </tr>
+				</table>
+	       </div>
+	    </div>
+    </div>
+    <div style="margin-bottom: 20px">
+    	<div class="container">
+    		<div class="row">
+	    		<div class="formulas bgc1 pd20" id="leftBox3" style="display: none">
+		        	<h4>请回答下列问题：</h4>
+
+					<table id="all-problem-table" class="table table-bordered" style="margin-top: 15px;">
+				        <tr>
+				            <th scope="row">题号</th>
+				            <td>题目</td>
+				        </tr>
+					</table>
+					<button class="btn-success btn-block" onclick="miss()" style="">隐藏</button>
+				</div>
+			</div>
+			<h1 style="display: block">未完待续...</h1>
+    	</div>
+    </div>
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+    	<div class="row">
+    		<div class="col-md-6 btn-success" style="min-height: 30px; line-height: 30px; text-align: center">个人匹配</div>
+    		<div class="col-md-6 btn-warning" style="min-height: 30px; line-height: 30px; text-align: center">多人对战</div>
+    	</div>
+    </nav>
+</body> 
+<script type="text/javascript">
+	
+window.onload = function(){
+    alignDiv("leftBox", "rightBox");
+    testScore();
+}
+
+var anss=[];
+var ANS;
+var youranss = [];
+var score = 0;
+var tScore = 0;
+var allFormulas = [];
+
+function testScore(){
+    var box = document.getElementsByClassName("guest-score")[0];
+    box.innerHTML = box.innerHTML.replace(/()(\d+)$/, "$1");
+    box.innerHTML += (score + "");
+}
+
+function alignDiv(a, b){
+    var box1 = document.getElementById(a);
+    var box2 = document.getElementById(b);
+    var h1 = box1.offsetHeight;
+    var h2 = box2.offsetHeight;
+    box1.style.height = Math.max(h1, h2) + "px";
+    box2.style.height = Math.max(h1, h2) + "px";
+}
+
+function submit(){
+
+    var tScore = 0;
+    $("#leftBox").hide();
+    $("#leftBox1").hide();
+    $("#leftBox2").css({"height":"381px"});
+    $("#leftBox2").fadeIn(2000);
+    while(youranss.length){
+        youranss.pop();
+    }
+    var text = document.getElementById("problem-table").children[0].children;
+    for(var i = 0 ; i < 5 ; i ++){
+        youranss.push(text[i].children[2].children[0].value);
+    }
+    text = document.getElementById("ans-table").children[0].children;
+    for(var i = 0 ; i < 5 ; i ++){
+        var text = document.getElementById("ans-table").children[0].children;
+        text[i].children[1].innerHTML = "正确答案"+anss[i].toString();
+    }
+    for(var i = 0 ; i < 5 ; i ++){
+        var text = document.getElementById("ans-table").children[0].children;
+        text[i].children[2].innerHTML = "你的答案"+youranss[i];
+    }
+    for(var i = 0 ; i < 5 ; i ++){
+        var text = document.getElementById("ans-table").children[0].children;
+        if(anss[i] == youranss[i]){
+            text[i].children[3].innerHTML = '<i class="fa fa-check"></i>';
+            tScore ++;
+        }
+        else
+            text[i].children[3].innerHTML = '<i class="fa fa-times"></i>';
+    }
+    score += tScore;
+    text[5].children[0].innerHTML = '#';
+    text[5].children[1].innerHTML = '本次得分:' + tScore;
+    text[5].children[2].innerHTML = '您的总分:' + score;
+}
+
+function back(){
+    $("#leftBox2").hide();
+    $("#leftBox1").hide();
+    testScore();
+    $("#leftBox").fadeIn(2000);
+}
+
+function test(){
+    console.log($(".formulas:first"));
+    console.log(document.getElementById("problem-table"));
+}
+
+function getItem(MAXNUM, MAXDIGIT, PUNCTUATION, BRACKET){
+    var items = [];
+    $("#leftBox").hide();
+    
+    for(var i = 0 ; i < 5 ; i ++){
+        items.push(getFormula(MAXNUM, MAXDIGIT, PUNCTUATION, BRACKET));
+    }
+    showFormula(items);
+    $("#leftBox1").css({"height":"381px"});
+    $("#leftBox1").fadeIn(2000);
+
+}
+
+
+function getFormula(MAXNUM, MAXDIGIT, PUNCTUATION, BRACKET){
+
+    var NUMDIGIT = Math.random() * MAXDIGIT; 
+    var punctuation = ['+' , '-' , '*' , '/']; 
+    var formula = [];
+
+    while(anss.length){
+        anss.pop();
+    }
+
+    NUMDIGIT = checkNum(NUMDIGIT); 
+    for(var i = 0 ; i < NUMDIGIT ; i ++){ 
+        formula.push(Math.ceil(Math.random() * MAXNUM));
+        if(i != NUMDIGIT - 1){
+            var index = Math.floor(Math.random() * PUNCTUATION);
+            formula.push(punctuation[index]);
+        }
+    }
+    if(BRACKET)
+    addBrackets();
+
+    function checkNum(number){
+        if(number < 2) return 2;
+        else return Math.ceil(number);
+    }
+
+    function addBrackets(){ 
+        var flag = 1;
+        if(flag){
+
+            var p1 = Math.floor(Math.random() * NUMDIGIT * 2); 
+            var p2 = Math.floor(Math.random() * NUMDIGIT * 2);
+            while((p1 - p2 == 1) || (p1 - p2 == -1) || p1 == p2) {
+                var p1 = Math.floor(Math.random() * NUMDIGIT * 2); 
+                var p2 = Math.floor(Math.random() * NUMDIGIT * 2);
+            }
+            if(p1 > p2){ 
+                var t = p1;
+                p1 = p2;
+                p2 = t;
+            }
+
+            if(!(p1 % 2)){
+                formula.splice(p1 , 0 , '(');
+            }else{
+                formula.splice(p1 - 1 , 0 , '(');
+            }
+            if(!((p2 + 1) % 2)){
+                formula.splice(p2 + 1 , 0 , ')');
+            }else{
+                formula.splice(p2 + 2 , 0 , ')');
+            }
+        }
+        
+    }
+    allFormulas.push(formula);
+    return formula;
+}
+
+function showFormula(items) { 
+
+    for(var j = 0 ; j < items.length ; j++){
+
+        var str = items[j];
+        var strFormula = str.join("");
+        var text = document.getElementById("problem-table").children[0].children;
+        text[j].children[1].innerHTML = strFormula;
+
+        var S1 = [] 
+        var S2 = [] 
+        for (var i = 0; i < str.length; i++) {
+            if (!isNaN(str[i])){
+                S2.push(str[i]);
+            }else if(isOperate(str[i])){
+                if(!S1.length){
+                    S1.push(str[i]);
+                } else{
+                    var s1Top = S1.pop();
+                    S1.push(s1Top);
+                    if(s1Top == '('){
+                        S1.push(str[i]);
+                    }
+                    else{
+                        var prior1 = getPriorty(s1Top);
+                        var prior2 = getPriorty(str[i]);
+                        if(prior1 < prior2){
+                            S1.push(str[i]);
+                        }else{
+                            var tempOp = S1.pop();
+                            S2.push(tempOp);
+                            i --;
+                        }
+                    }
+                }
+            }else if(str[i] == '('){
+                S1.push(str[i]);
+            }else if(str[i] == ')'){
+                var tempOp = S1.pop();
+                while(tempOp != '('){
+                    S2.push(tempOp);
+                    tempOp = S1.pop();
+                }
+            }
+
+        }
+
+        while(S1.length){
+            var tempOp = S1.pop();
+            S2.push(tempOp);
+        }
+
+        ANS = getAns(S2);        
+
+        anss.push(Number(ANS.toFixed(2)));
+    }
+    console.log(anss);
+}
+
+function checkAns(){
+    ANS = ANS.toFixed(2);
+    ANS = Number(ANS);
+    console.log("答案="+ANS);
+    var myAns = document.getElementById("answer").value;
+    console.log(myAns);
+    if(myAns == ANS){
+        alert("回答正确!");
+    }else{
+        alert("回答错误! 正确答案是"+ANS+",请仔细检查一下哟~");
+    }
+}
+
+function getAns(formula){
+    var ansArr = []; 
+
+    for(var i = 0 ; i < formula.length ; i ++){
+        if(!isNaN(formula[i])){
+            ansArr.push(formula[i]);
+        }else{
+            var p1 = ansArr.pop();
+            var p2 = ansArr.pop();
+            var tAns;
+            switch (formula[i]){
+                case '+': tAns = p2 + p1; break;
+                case '-': tAns = p2 - p1; break;
+                case '*': tAns = p2 * p1; break;
+                case '/': tAns = p2 / p1; break;
+            }
+            ansArr.push(tAns);
+        }
+    }
+    return ansArr.pop();
+}
+
+function isOperate(op){
+    if(op == '+' || op == '-' || op == '*' || op == '/'){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+function getPriorty(op){
+    var prior;
+    if(op == "+" || op == "-") prior = 0;
+    if(op == "*" || op == "/") prior = 1;
+    return prior;
+}
+
+function showAllFormulas(){
+    console.log(allFormulas)
+    var mytable = document.getElementById("all-problem-table").children[0];
+
+    var t = mytable.children["length"];
+    for(var i = 0 ; i < t - 1 ; i ++){
+        mytable.removeChild(mytable.children[1]);
+    }
+
+    for(var i = 0 ; i < allFormulas.length ; i ++){
+        var newTr = document.createElement("tr");
+        var newTd1 = document.createElement("td");
+        newTd1.appendChild(document.createTextNode(i+""));
+        var newTd2 = document.createElement("td");
+        newTd2.appendChild(document.createTextNode(allFormulas[i].join("")));
+        newTr.appendChild(newTd1);
+        newTr.appendChild(newTd2);
+        mytable.appendChild(newTr);
+    }
+    $("#leftBox3").fadeIn(2000);
+    
+    
+}
+
+function miss(){
+    console.log(allFormulas)
+    $("#leftBox3").hide();
+}
+</script>
+</html>
